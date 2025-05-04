@@ -1,0 +1,537 @@
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Virtual Clothing &amp; Style Editor
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+      font-family: 'Roboto', sans-serif;
+    }
+  </style>
+ </head>
+ <body class="bg-gray-50 min-h-screen flex flex-col">
+  <header class="bg-white shadow-md sticky top-0 z-30">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+    <div class="flex items-center space-x-3">
+     <img alt="Virtual Clothing Editor logo, stylized letters VC in blue and white" class="h-10 w-10 rounded-full" height="40" src="https://storage.googleapis.com/a1aa/image/293fc179-e4f4-40a8-b5cc-256904f12ca6.jpg" width="40"/>
+     <h1 class="text-2xl font-bold text-indigo-700">
+      StyleEdit
+     </h1>
+    </div>
+    <nav class="hidden md:flex space-x-6 text-gray-700 font-medium">
+     <a class="hover:text-indigo-600 transition" href="#upload">
+      Upload
+     </a>
+     <a class="hover:text-indigo-600 transition" href="#clothing">
+      Clothing
+     </a>
+     <a class="hover:text-indigo-600 transition" href="#poses">
+      Poses
+     </a>
+     <a class="hover:text-indigo-600 transition" href="#hairstyles">
+      Hairstyles
+     </a>
+     <a class="hover:text-indigo-600 transition" href="#backgrounds">
+      Backgrounds
+     </a>
+     <a class="hover:text-indigo-600 transition" href="#instructions">
+      Instructions
+     </a>
+    </nav>
+    <button aria-label="Open menu" class="md:hidden text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600" id="mobile-menu-button">
+     <i class="fas fa-bars fa-lg">
+     </i>
+    </button>
+   </div>
+   <nav aria-label="Mobile menu" class="hidden md:hidden bg-white border-t border-gray-200" id="mobile-menu">
+    <a class="block px-4 py-3 text-gray-700 hover:bg-indigo-50" href="#upload">
+     Upload
+    </a>
+    <a class="block px-4 py-3 text-gray-700 hover:bg-indigo-50" href="#clothing">
+     Clothing
+    </a>
+    <a class="block px-4 py-3 text-gray-700 hover:bg-indigo-50" href="#poses">
+     Poses
+    </a>
+    <a class="block px-4 py-3 text-gray-700 hover:bg-indigo-50" href="#hairstyles">
+     Hairstyles
+    </a>
+    <a class="block px-4 py-3 text-gray-700 hover:bg-indigo-50" href="#backgrounds">
+     Backgrounds
+    </a>
+    <a class="block px-4 py-3 text-gray-700 hover:bg-indigo-50" href="#instructions">
+     Instructions
+    </a>
+   </nav>
+  </header>
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+   <section class="mb-12" id="upload">
+    <h2 class="text-3xl font-bold text-indigo-700 mb-4">
+     Upload Your Picture
+    </h2>
+    <p class="mb-4 text-gray-700 max-w-2xl">
+     Upload a clear full-body image of yourself to start editing your look with different clothing, poses, hairstyles, and backgrounds.
+    </p>
+    <div class="flex flex-col sm:flex-row items-center gap-6">
+     <input accept="image/*" aria-label="Upload your picture" class="block w-full sm:w-auto px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" id="imageUpload" type="file"/>
+     <button aria-label="Clear uploaded image" class="px-5 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition disabled:opacity-50" disabled="" id="clearImage">
+      Clear Image
+     </button>
+    </div>
+    <div aria-live="polite" class="mt-6 w-full max-w-sm h-auto rounded-md overflow-hidden border border-gray-300 bg-white shadow-sm hidden" id="uploadedImageContainer">
+     <img alt="User uploaded full body image" class="w-full h-auto object-contain" id="uploadedImage" src=""/>
+    </div>
+   </section>
+   <section class="mb-12" id="clothing">
+    <h2 class="text-3xl font-bold text-indigo-700 mb-4">
+     Choose Clothing
+    </h2>
+    <p class="mb-4 text-gray-700 max-w-2xl">
+     Select from a variety of clothing styles to virtually try on.
+    </p>
+    <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-4">
+     <button aria-label="Select Salwar Suit clothing" class="clothing-option border border-gray-300 rounded-md p-2 bg-white hover:shadow-lg transition flex flex-col items-center" data-clothing="Salwar Suit">
+      <img alt="Salwar Suit clothing style, traditional Indian outfit with long tunic and pants in vibrant colors" class="mb-2 rounded-md object-cover w-full h-36" height="140" src="https://storage.googleapis.com/a1aa/image/b8e7288c-efcf-410e-ba10-c541093fd2f5.jpg" width="100"/>
+      <span class="text-sm font-medium text-gray-800">
+       Salwar Suit
+      </span>
+     </button>
+     <button aria-label="Select Lehanga clothing" class="clothing-option border border-gray-300 rounded-md p-2 bg-white hover:shadow-lg transition flex flex-col items-center" data-clothing="Lehanga">
+      <img alt="Lehanga clothing style, traditional Indian skirt and blouse with embroidery and bright colors" class="mb-2 rounded-md object-cover w-full h-36" height="140" src="https://storage.googleapis.com/a1aa/image/0e49d2e2-2243-4aaf-8e75-b900e65f60a0.jpg" width="100"/>
+      <span class="text-sm font-medium text-gray-800">
+       Lehanga
+      </span>
+     </button>
+     <button aria-label="Select One Piece clothing" class="clothing-option border border-gray-300 rounded-md p-2 bg-white hover:shadow-lg transition flex flex-col items-center" data-clothing="One Piece">
+      <img alt="One Piece clothing style, a single-piece dress with elegant design and modern look" class="mb-2 rounded-md object-cover w-full h-36" height="140" src="https://storage.googleapis.com/a1aa/image/7c6e7fed-fcfc-426e-8738-96ab593a3244.jpg" width="100"/>
+      <span class="text-sm font-medium text-gray-800">
+       One Piece
+      </span>
+     </button>
+     <button aria-label="Select Bodycon clothing" class="clothing-option border border-gray-300 rounded-md p-2 bg-white hover:shadow-lg transition flex flex-col items-center" data-clothing="Bodycon">
+      <img alt="Bodycon clothing style, tight-fitting dress emphasizing silhouette in solid color" class="mb-2 rounded-md object-cover w-full h-36" height="140" src="https://storage.googleapis.com/a1aa/image/c246341e-a853-4673-853b-6645f4bd4383.jpg" width="100"/>
+      <span class="text-sm font-medium text-gray-800">
+       Bodycon
+      </span>
+     </button>
+     <button aria-label="Select Jumpsuit clothing" class="clothing-option border border-gray-300 rounded-md p-2 bg-white hover:shadow-lg transition flex flex-col items-center" data-clothing="Jumpsuit">
+      <img alt="Jumpsuit clothing style, one-piece garment with pants and top combined in modern style" class="mb-2 rounded-md object-cover w-full h-36" height="140" src="https://storage.googleapis.com/a1aa/image/a957b06e-c69b-43ec-5419-0845f59c6841.jpg" width="100"/>
+      <span class="text-sm font-medium text-gray-800">
+       Jumpsuit
+      </span>
+     </button>
+     <button aria-label="Select Jean Top clothing" class="clothing-option border border-gray-300 rounded-md p-2 bg-white hover:shadow-lg transition flex flex-col items-center" data-clothing="Jean Top">
+      <img alt="Jean Top clothing style, denim jacket or shirt with casual look" class="mb-2 rounded-md object-cover w-full h-36" height="140" src="https://storage.googleapis.com/a1aa/image/4a66f4e0-cbde-4d82-e4b8-b05f90a3cdfc.jpg" width="100"/>
+      <span class="text-sm font-medium text-gray-800">
+       Jean Top
+      </span>
+     </button>
+    </div>
+   </section>
+   <section class="mb-12" id="poses">
+    <h2 class="text-3xl font-bold text-indigo-700 mb-4">
+     Select Pose
+    </h2>
+    <p class="mb-4 text-gray-700 max-w-2xl">
+     Choose a pose to see how you look in different styles.
+    </p>
+    <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-4">
+     <button aria-label="Select Standing pose" class="pose-option border border-gray-300 rounded-md p-2 bg-white hover:shadow-lg transition flex flex-col items-center" data-pose="Standing">
+      <img alt="Standing pose, person standing straight with arms relaxed by sides" class="mb-2 rounded-md object-cover w-full h-36" height="140" src="https://storage.googleapis.com/a1aa/image/2186512e-8be2-4750-cef0-2dbe69d484df.jpg" width="100"/>
+      <span class="text-sm font-medium text-gray-800">
+       Standing
+      </span>
+     </button>
+     <button aria-label="Select Hand on Hip pose" class="pose-option border border-gray-300 rounded-md p-2 bg-white hover:shadow-lg transition flex flex-col items-center" data-pose="Hand on Hip">
+      <img alt="Hand on hip pose, person standing with one hand resting on hip" class="mb-2 rounded-md object-cover w-full h-36" height="140" src="https://storage.googleapis.com/a1aa/image/70d11c09-71e7-4a50-b207-de6a4ca7b8cc.jpg" width="100"/>
+      <span class="text-sm font-medium text-gray-800">
+       Hand on Hip
+      </span>
+     </button>
+     <button aria-label="Select Crossed Arms pose" class="pose-option border border-gray-300 rounded-md p-2 bg-white hover:shadow-lg transition flex flex-col items-center" data-pose="Crossed Arms">
+      <img alt="Crossed arms pose, person standing with arms crossed over chest" class="mb-2 rounded-md object-cover w-full h-36" height="140" src="https://storage.googleapis.com/a1aa/image/52734242-365c-480e-6ad1-fdc8430ae9fd.jpg" width="100"/>
+      <span class="text-sm font-medium text-gray-800">
+       Crossed Arms
+      </span>
+     </button>
+     <button aria-label="Select Walking pose" class="pose-option border border-gray-300 rounded-md p-2 bg-white hover:shadow-lg transition flex flex-col items-center" data-pose="Walking">
+      <img alt="Walking pose, person mid-step with one foot forward and arms swinging" class="mb-2 rounded-md object-cover w-full h-36" height="140" src="https://storage.googleapis.com/a1aa/image/29887636-3ccf-472f-bd80-ee5685f5a04c.jpg" width="100"/>
+      <span class="text-sm font-medium text-gray-800">
+       Walking
+      </span>
+     </button>
+     <button aria-label="Select Sitting pose" class="pose-option border border-gray-300 rounded-md p-2 bg-white hover:shadow-lg transition flex flex-col items-center" data-pose="Sitting">
+      <img alt="Sitting pose, person seated with legs crossed or relaxed" class="mb-2 rounded-md object-cover w-full h-36" height="140" src="https://storage.googleapis.com/a1aa/image/5229f793-d8f9-4711-4d88-2fa088141621.jpg" width="100"/>
+      <span class="text-sm font-medium text-gray-800">
+       Sitting
+      </span>
+     </button>
+     <button aria-label="Select Looking Back pose" class="pose-option border border-gray-300 rounded-md p-2 bg-white hover:shadow-lg transition flex flex-col items-center" data-pose="Looking Back">
+      <img alt="Looking back pose, person turning head over shoulder" class="mb-2 rounded-md object-cover w-full h-36" height="140" src="https://storage.googleapis.com/a1aa/image/69b07192-d683-480b-854a-d33400260602.jpg" width="100"/>
+      <span class="text-sm font-medium text-gray-800">
+       Looking Back
+      </span>
+     </button>
+    </div>
+   </section>
+   <section class="mb-12" id="hairstyles">
+    <h2 class="text-3xl font-bold text-indigo-700 mb-4">
+     Choose Hairstyle
+    </h2>
+    <p class="mb-4 text-gray-700 max-w-2xl">
+     Try different hairstyles to complete your look.
+    </p>
+    <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-4">
+     <button aria-label="Select Long Straight hairstyle" class="hairstyle-option border border-gray-300 rounded-md p-2 bg-white hover:shadow-lg transition flex flex-col items-center" data-hairstyle="Long Straight">
+      <img alt="Long straight hairstyle, hair flowing down smoothly past shoulders" class="mb-2 rounded-md object-cover w-full h-36" height="140" src="https://storage.googleapis.com/a1aa/image/cb831998-dc24-4191-cc17-e0b08a1af54c.jpg" width="100"/>
+      <span class="text-sm font-medium text-gray-800">
+       Long Straight
+      </span>
+     </button>
+     <button aria-label="Select Curly hairstyle" class="hairstyle-option border border-gray-300 rounded-md p-2 bg-white hover:shadow-lg transition flex flex-col items-center" data-hairstyle="Curly">
+      <img alt="Curly hairstyle, voluminous curls framing the face" class="mb-2 rounded-md object-cover w-full h-36" height="140" src="https://storage.googleapis.com/a1aa/image/c52343d4-e1e8-47aa-b416-14167e001429.jpg" width="100"/>
+      <span class="text-sm font-medium text-gray-800">
+       Curly
+      </span>
+     </button>
+     <button aria-label="Select Braided hairstyle" class="hairstyle-option border border-gray-300 rounded-md p-2 bg-white hover:shadow-lg transition flex flex-col items-center" data-hairstyle="Braided">
+      <img alt="Braided hairstyle, hair styled in neat braids" class="mb-2 rounded-md object-cover w-full h-36" height="140" src="https://storage.googleapis.com/a1aa/image/5b8e5282-9c8f-4208-b889-d620a5ad9edd.jpg" width="100"/>
+      <span class="text-sm font-medium text-gray-800">
+       Braided
+      </span>
+     </button>
+     <button aria-label="Select Ponytail hairstyle" class="hairstyle-option border border-gray-300 rounded-md p-2 bg-white hover:shadow-lg transition flex flex-col items-center" data-hairstyle="Ponytail">
+      <img alt="Ponytail hairstyle, hair pulled back and tied high" class="mb-2 rounded-md object-cover w-full h-36" height="140" src="https://storage.googleapis.com/a1aa/image/b9924f93-2880-4c51-cac8-eaf36119de53.jpg" width="100"/>
+      <span class="text-sm font-medium text-gray-800">
+       Ponytail
+      </span>
+     </button>
+     <button aria-label="Select Bob Cut hairstyle" class="hairstyle-option border border-gray-300 rounded-md p-2 bg-white hover:shadow-lg transition flex flex-col items-center" data-hairstyle="Bob Cut">
+      <img alt="Bob cut hairstyle, short hair cut just below ears" class="mb-2 rounded-md object-cover w-full h-36" height="140" src="https://storage.googleapis.com/a1aa/image/af20d95d-69ab-4438-dd7d-f94866506ba0.jpg" width="100"/>
+      <span class="text-sm font-medium text-gray-800">
+       Bob Cut
+      </span>
+     </button>
+     <button aria-label="Select Updo hairstyle" class="hairstyle-option border border-gray-300 rounded-md p-2 bg-white hover:shadow-lg transition flex flex-col items-center" data-hairstyle="Updo">
+      <img alt="Updo hairstyle, hair styled up elegantly for formal look" class="mb-2 rounded-md object-cover w-full h-36" height="140" src="https://storage.googleapis.com/a1aa/image/04261cc8-075a-4257-7bda-70b5a683eb0d.jpg" width="100"/>
+      <span class="text-sm font-medium text-gray-800">
+       Updo
+      </span>
+     </button>
+    </div>
+   </section>
+   <section class="mb-12" id="backgrounds">
+    <h2 class="text-3xl font-bold text-indigo-700 mb-4">
+     Select Background
+    </h2>
+    <p class="mb-4 text-gray-700 max-w-2xl">
+     Change the background to match your style or mood.
+    </p>
+    <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-4">
+     <button aria-label="Select Studio background" class="background-option border border-gray-300 rounded-md p-2 bg-white hover:shadow-lg transition flex flex-col items-center" data-background="Studio">
+      <img alt="Studio background, plain light gray backdrop with soft lighting" class="mb-2 rounded-md object-cover w-full h-36" height="140" src="https://storage.googleapis.com/a1aa/image/3b5b1019-acf3-42bf-eca3-d140431cd5fa.jpg" width="100"/>
+      <span class="text-sm font-medium text-gray-800">
+       Studio
+      </span>
+     </button>
+     <button aria-label="Select Outdoor Garden background" class="background-option border border-gray-300 rounded-md p-2 bg-white hover:shadow-lg transition flex flex-col items-center" data-background="Outdoor Garden">
+      <img alt="Outdoor garden background, lush greenery and flowers in daylight" class="mb-2 rounded-md object-cover w-full h-36" height="140" src="https://storage.googleapis.com/a1aa/image/d67a4466-94e1-4171-1c81-572db6319f79.jpg" width="100"/>
+      <span class="text-sm font-medium text-gray-800">
+       Outdoor Garden
+      </span>
+     </button>
+     <button aria-label="Select Cityscape background" class="background-option border border-gray-300 rounded-md p-2 bg-white hover:shadow-lg transition flex flex-col items-center" data-background="Cityscape">
+      <img alt="Cityscape background, urban skyline with buildings and lights" class="mb-2 rounded-md object-cover w-full h-36" height="140" src="https://storage.googleapis.com/a1aa/image/29090214-7d32-42e1-26f8-ff67d326fe1d.jpg" width="100"/>
+      <span class="text-sm font-medium text-gray-800">
+       Cityscape
+      </span>
+     </button>
+     <button aria-label="Select Beach background" class="background-option border border-gray-300 rounded-md p-2 bg-white hover:shadow-lg transition flex flex-col items-center" data-background="Beach">
+      <img alt="Beach background, sandy shore with ocean waves and blue sky" class="mb-2 rounded-md object-cover w-full h-36" height="140" src="https://storage.googleapis.com/a1aa/image/6c90ff98-7589-4fa2-de95-efab08bb6761.jpg" width="100"/>
+      <span class="text-sm font-medium text-gray-800">
+       Beach
+      </span>
+     </button>
+     <button aria-label="Select Abstract Colors background" class="background-option border border-gray-300 rounded-md p-2 bg-white hover:shadow-lg transition flex flex-col items-center" data-background="Abstract Colors">
+      <img alt="Abstract colors background, vibrant shapes and gradients" class="mb-2 rounded-md object-cover w-full h-36" height="140" src="https://storage.googleapis.com/a1aa/image/d232d34e-9c26-4233-f3f6-b829682cc81e.jpg" width="100"/>
+      <span class="text-sm font-medium text-gray-800">
+       Abstract Colors
+      </span>
+     </button>
+     <button aria-label="Select Night Sky background" class="background-option border border-gray-300 rounded-md p-2 bg-white hover:shadow-lg transition flex flex-col items-center" data-background="Night Sky">
+      <img alt="Night sky background, starry sky with moon and dark blue hues" class="mb-2 rounded-md object-cover w-full h-36" height="140" src="https://storage.googleapis.com/a1aa/image/874ee255-c238-4893-bf9b-8b95104015ed.jpg" width="100"/>
+      <span class="text-sm font-medium text-gray-800">
+       Night Sky
+      </span>
+     </button>
+    </div>
+   </section>
+   <section class="mb-12 max-w-4xl mx-auto" id="instructions">
+    <h2 class="text-3xl font-bold text-indigo-700 mb-4">
+     Provide Text Instructions
+    </h2>
+    <p class="mb-4 text-gray-700">
+     You can also describe the changes you want to see in your picture by typing instructions below.
+    </p>
+    <textarea aria-label="Text instructions for picture editing" class="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 resize-none" id="textInstructions" placeholder="E.g., Change my dress to a red lehanga, add curly hairstyle, and place me in a garden background." rows="4"></textarea>
+    <button aria-label="Apply text instructions" class="mt-4 px-6 py-3 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition" id="applyInstructions">
+     Apply Instructions
+    </button>
+   </section>
+   <section class="mb-12 max-w-4xl mx-auto" id="preview">
+    <h2 class="text-3xl font-bold text-indigo-700 mb-4">
+     Preview
+    </h2>
+    <div aria-live="polite" class="relative w-full aspect-[3/4] max-w-sm mx-auto rounded-md border border-gray-300 bg-white shadow-lg overflow-hidden" id="previewContainer">
+     <img alt="Selected background image" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover" height="800" id="previewBackground" src="https://storage.googleapis.com/a1aa/image/62aa9b7e-1a27-4c93-a82b-e4a02c91b73c.jpg" width="600"/>
+     <img alt="Uploaded user image with applied edits" aria-hidden="true" class="absolute inset-0 w-full h-full object-contain" id="previewUserImage" src=""/>
+     <img alt="Selected clothing overlay" aria-hidden="true" class="absolute inset-0 w-full h-full object-contain pointer-events-none" id="previewClothing" src=""/>
+     <img alt="Selected pose overlay" aria-hidden="true" class="absolute inset-0 w-full h-full object-contain pointer-events-none" id="previewPose" src=""/>
+     <img alt="Selected hairstyle overlay" aria-hidden="true" class="absolute inset-0 w-full h-full object-contain pointer-events-none" id="previewHairstyle" src=""/>
+    </div>
+   </section>
+  </main>
+  <footer class="bg-white border-t border-gray-200 py-6 mt-auto">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500 text-sm">
+    © 2024 StyleEdit. All rights reserved.
+   </div>
+  </footer>
+  <script>
+   // Mobile menu toggle
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Elements
+    const imageUpload = document.getElementById('imageUpload');
+    const clearImageBtn = document.getElementById('clearImage');
+    const uploadedImageContainer = document.getElementById('uploadedImageContainer');
+    const uploadedImage = document.getElementById('uploadedImage');
+
+    const clothingOptions = document.querySelectorAll('.clothing-option');
+    const poseOptions = document.querySelectorAll('.pose-option');
+    const hairstyleOptions = document.querySelectorAll('.hairstyle-option');
+    const backgroundOptions = document.querySelectorAll('.background-option');
+
+    const previewUserImage = document.getElementById('previewUserImage');
+    const previewClothing = document.getElementById('previewClothing');
+    const previewPose = document.getElementById('previewPose');
+    const previewHairstyle = document.getElementById('previewHairstyle');
+    const previewBackground = document.getElementById('previewBackground');
+
+    const textInstructions = document.getElementById('textInstructions');
+    const applyInstructionsBtn = document.getElementById('applyInstructions');
+
+    // State
+    let uploadedImageURL = '';
+    let selectedClothing = '';
+    let selectedPose = '';
+    let selectedHairstyle = '';
+    let selectedBackground = '';
+
+    // Helper to clear selection classes
+    function clearSelection(options) {
+      options.forEach((opt) => opt.classList.remove('ring-4', 'ring-indigo-500'));
+    }
+
+    // Upload image handler
+    imageUpload.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const url = URL.createObjectURL(file);
+      uploadedImage.src = url;
+      previewUserImage.src = url;
+      uploadedImageContainer.classList.remove('hidden');
+      clearImageBtn.disabled = false;
+      uploadedImageURL = url;
+    });
+
+    // Clear image handler
+    clearImageBtn.addEventListener('click', () => {
+      imageUpload.value = '';
+      uploadedImage.src = '';
+      previewUserImage.src = '';
+      uploadedImageContainer.classList.add('hidden');
+      clearImageBtn.disabled = true;
+      uploadedImageURL = '';
+    });
+
+    // Clothing selection
+    clothingOptions.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        clearSelection(clothingOptions);
+        btn.classList.add('ring-4', 'ring-indigo-500');
+        selectedClothing = btn.getAttribute('data-clothing');
+        // Update preview clothing image
+        previewClothing.src = `https://placehold.co/600x800/png?text=${encodeURIComponent(selectedClothing)}+Clothing+Overlay`;
+        previewClothing.alt = `${selectedClothing} clothing overlay`;
+      });
+    });
+
+    // Pose selection
+    poseOptions.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        clearSelection(poseOptions);
+        btn.classList.add('ring-4', 'ring-indigo-500');
+        selectedPose = btn.getAttribute('data-pose');
+        previewPose.src = `https://placehold.co/600x800/png?text=${encodeURIComponent(selectedPose)}+Pose+Overlay`;
+        previewPose.alt = `${selectedPose} pose overlay`;
+      });
+    });
+
+    // Hairstyle selection
+    hairstyleOptions.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        clearSelection(hairstyleOptions);
+        btn.classList.add('ring-4', 'ring-indigo-500');
+        selectedHairstyle = btn.getAttribute('data-hairstyle');
+        previewHairstyle.src = `https://placehold.co/600x800/png?text=${encodeURIComponent(selectedHairstyle)}+Hairstyle+Overlay`;
+        previewHairstyle.alt = `${selectedHairstyle} hairstyle overlay`;
+      });
+    });
+
+    // Background selection
+    backgroundOptions.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        clearSelection(backgroundOptions);
+        btn.classList.add('ring-4', 'ring-indigo-500');
+        selectedBackground = btn.getAttribute('data-background');
+        previewBackground.src = `https://placehold.co/600x800/png?text=${encodeURIComponent(selectedBackground)}+Background`;
+        previewBackground.alt = `${selectedBackground} background image`;
+      });
+    });
+
+    // Apply text instructions (mock implementation)
+    applyInstructionsBtn.addEventListener('click', () => {
+      const instructions = textInstructions.value.trim().toLowerCase();
+      if (!instructions) {
+        alert('Please enter some instructions.');
+        return;
+      }
+
+      // Simple keyword matching to simulate changes
+      // Clothing
+      const clothingKeywords = {
+        'salwar': 'Salwar Suit',
+        'lehanga': 'Lehanga',
+        'one piece': 'One Piece',
+        'bodycon': 'Bodycon',
+        'jumpsuit': 'Jumpsuit',
+        'jean top': 'Jean Top',
+      };
+      let foundClothing = '';
+      for (const key in clothingKeywords) {
+        if (instructions.includes(key)) {
+          foundClothing = clothingKeywords[key];
+          break;
+        }
+      }
+      if (foundClothing) {
+        selectedClothing = foundClothing;
+        clearSelection(clothingOptions);
+        clothingOptions.forEach((btn) => {
+          if (btn.getAttribute('data-clothing') === foundClothing) {
+            btn.classList.add('ring-4', 'ring-indigo-500');
+          }
+        });
+        previewClothing.src = `https://placehold.co/600x800/png?text=${encodeURIComponent(foundClothing)}+Clothing+Overlay`;
+        previewClothing.alt = `${foundClothing} clothing overlay`;
+      }
+
+      // Hairstyle
+      const hairstyleKeywords = {
+        'long straight': 'Long Straight',
+        'curly': 'Curly',
+        'braid': 'Braided',
+        'ponytail': 'Ponytail',
+        'bob': 'Bob Cut',
+        'updo': 'Updo',
+      };
+      let foundHairstyle = '';
+      for (const key in hairstyleKeywords) {
+        if (instructions.includes(key)) {
+          foundHairstyle = hairstyleKeywords[key];
+          break;
+        }
+      }
+      if (foundHairstyle) {
+        selectedHairstyle = foundHairstyle;
+        clearSelection(hairstyleOptions);
+        hairstyleOptions.forEach((btn) => {
+          if (btn.getAttribute('data-hairstyle') === foundHairstyle) {
+            btn.classList.add('ring-4', 'ring-indigo-500');
+          }
+        });
+        previewHairstyle.src = `https://placehold.co/600x800/png?text=${encodeURIComponent(foundHairstyle)}+Hairstyle+Overlay`;
+        previewHairstyle.alt = `${foundHairstyle} hairstyle overlay`;
+      }
+
+      // Background
+      const backgroundKeywords = {
+        'studio': 'Studio',
+        'garden': 'Outdoor Garden',
+        'city': 'Cityscape',
+        'beach': 'Beach',
+        'abstract': 'Abstract Colors',
+        'night': 'Night Sky',
+      };
+      let foundBackground = '';
+      for (const key in backgroundKeywords) {
+        if (instructions.includes(key)) {
+          foundBackground = backgroundKeywords[key];
+          break;
+        }
+      }
+      if (foundBackground) {
+        selectedBackground = foundBackground;
+        clearSelection(backgroundOptions);
+        backgroundOptions.forEach((btn) => {
+          if (btn.getAttribute('data-background') === foundBackground) {
+            btn.classList.add('ring-4', 'ring-indigo-500');
+          }
+        });
+        previewBackground.src = `https://placehold.co/600x800/png?text=${encodeURIComponent(foundBackground)}+Background`;
+        previewBackground.alt = `${foundBackground} background image`;
+      }
+
+      // Pose
+      const poseKeywords = {
+        'standing': 'Standing',
+        'hand on hip': 'Hand on Hip',
+        'crossed arms': 'Crossed Arms',
+        'walking': 'Walking',
+        'sitting': 'Sitting',
+        'looking back': 'Looking Back',
+      };
+      let foundPose = '';
+      for (const key in poseKeywords) {
+        if (instructions.includes(key)) {
+          foundPose = poseKeywords[key];
+          break;
+        }
+      }
+      if (foundPose) {
+        selectedPose = foundPose;
+        clearSelection(poseOptions);
+        poseOptions.forEach((btn) => {
+          if (btn.getAttribute('data-pose') === foundPose) {
+            btn.classList.add('ring-4', 'ring-indigo-500');
+          }
+        });
+        previewPose.src = `https://placehold.co/600x800/png?text=${encodeURIComponent(foundPose)}+Pose+Overlay`;
+        previewPose.alt = `${foundPose} pose overlay`;
+      }
+
+      alert('Instructions applied. Preview updated.');
+    });
+  </script>
+ </body>
+</html>
